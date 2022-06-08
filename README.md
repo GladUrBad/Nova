@@ -1,6 +1,6 @@
 # Nova AntiCheat
 This anti-cheat is the partial culmination of my knowledge about Minecraft anti-cheating.
-Partial, because well, this is open sourced and as a result did not provide 100% accurate methods or all of the useful checks.
+Partial, because well, this is open sourced and as a result I did not provide 100% accurate methods or all of the useful checks.
 You'll probably notice that there are very few checks. I did not intend on making Nova a fully-fledged production anti-cheat with all
 the bells and whistles. 
 
