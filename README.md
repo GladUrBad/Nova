@@ -41,3 +41,7 @@ to the least bypasses and false positives.
 # Changing alert format
 View the check class and change the format field. The immutable format placeholders are cached during check initialization to reduce performance
 impact.
+
+# Conventions
+When working on Nova, please stick to the project conventions. For example, please do not spam final modifiers because I do not use them here.
+When submitting a feature, please make your own branch, do not work on master.
