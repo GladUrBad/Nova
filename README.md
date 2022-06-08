@@ -18,15 +18,15 @@ Nova also gives a clean base with utilities to add your own checks. While this b
 will be kept clean. I encourage thoroughly optimizing the base before using this on a production server.
 
 # Base overview
-Nova - Helper class used to cleanly access fields in the NovaPlugin class.
-NovaPlugin - Main class of Nova.
+Nova - Helper class used to cleanly access fields in the NovaPlugin class.\n
+NovaPlugin - Main class of Nova.\n
 PacketManager - Packet listening for players. This uses a modified player connection class to feed the packets to the wrapper system
-off of the main thread.
+off of the main thread.\n
 PlayerListener - Listens for players joining or leaving. We inject the packet manager on this events. This means some of the packets 
-will be lost in the beginning, so be careful with this in your checks.
-PlayerData - Stores only a few fields, such as the managers which are initialized per player.
-TrackerManager - Stores each tracker initialized per player. Register new trackers here.
-CheckManager - Stores each check initialized per player. Register new checks here.
+will be lost in the beginning, so be careful with this in your checks.\n
+PlayerData - Stores only a few fields, such as the managers which are initialized per player.\n
+TrackerManager - Stores each tracker initialized per player. Register new trackers here.\n
+CheckManager - Stores each check initialized per player. Register new checks here.\n
 
 # Check handlers
 Most anti-cheats use a single method or multiple abstract class types for check handling. Nova uses an interface handler system, so you
