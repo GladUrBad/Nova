@@ -10,7 +10,9 @@ Nova should be used as a resource to the community. Nova introduces checks unhea
 - Reach and hit-box check which utilizes transaction-confirmed tracking and interpolation.
 
 Nova also introduces packet listening on the main thread, through a modified PlayerConnection class. The packet wrapper system itself
-uses reflection. 
+uses reflection. Why would you want to be on the main thread? ![image](https://user-images.githubusercontent.com/62041141/172733095-ffc9eee0-eded-4a11-b621-62f7d7c84686.png)
+
+
 
 Nova also gives a clean base with utilities to add your own checks. While this base is certainly not performant, your formatting 
 will be kept clean. I encourage thoroughly optimizing the base before using this on a production server.
