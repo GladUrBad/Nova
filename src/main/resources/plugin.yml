@@ -1,0 +1,5 @@
+name: Nova
+version: '${project.version}'
+main: com.gladurbad.nova.NovaPlugin
+authors: [ GladUrBad ]
+description: Anticheat for Spigot 1.8 servers.
