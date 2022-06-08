@@ -4,7 +4,7 @@ Partial, because well, this is open sourced and as a result did not provide 100%
 You'll probably notice that there are very few checks. I did not intend on making Nova a fully-fledged production anti-cheat with all
 the bells and whistles. 
 
-Nova should be used as a resource to the community. Nova introduces checks unheard of in a public anti-cheat system, such as:
+Nova should be used as a resource to the community. Nova introduces checks unheard of in an open sourced, public anti-cheat system, such as:
 - Aim checks which simulate kill-aura rotations serverside and use statistical analysis to identity patterns which represent such.
 - Aim checks which utilize an accurate sensitivity tracker to flag rotations which bypass GCD checks.
 - Reach and hit-box check which utilizes transaction-confirmed tracking and interpolation.
