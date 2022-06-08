@@ -10,29 +10,23 @@ Nova should be used as a resource to the community. Nova introduces checks unhea
 - Reach and hit-box check which utilizes transaction-confirmed tracking and interpolation.
 
 Nova also introduces packet listening on the main thread, through a modified PlayerConnection class. The packet wrapper system itself
-uses reflection. Why would you want to be on the main thread? ![image](https://user-images.githubusercontent.com/62041141/172733095-ffc9eee0-eded-4a11-b621-62f7d7c84686.png)
+uses reflection. Why would you want to be on the main thread?
 
-
+![image](https://user-images.githubusercontent.com/62041141/172733095-ffc9eee0-eded-4a11-b621-62f7d7c84686.png)
 
 Nova also gives a clean base with utilities to add your own checks. While this base is certainly not performant, your formatting 
 will be kept clean. I encourage thoroughly optimizing the base before using this on a production server.
 
 ### Base overview
-Nova - Helper class used to cleanly access fields in the NovaPlugin class.
-
-NovaPlugin - Main class of Nova.
-
+Nova - Helper class used to cleanly access fields in the NovaPlugin class.__
+NovaPlugin - Main class of Nova.__
 PacketManager - Packet listening for players. This uses a modified player connection class to feed the packets to the wrapper system
-off of the main thread.
-
+off of the main thread.__
 PlayerListener - Listens for players joining or leaving. We inject the packet manager on this events. This means some of the packets 
-will be lost in the beginning, so be careful with this in your checks.
-
-PlayerData - Stores only a few fields, such as the managers which are initialized per player.
-
-TrackerManager - Stores each tracker initialized per player. Register new trackers here.
-
-CheckManager - Stores each check initialized per player. Register new checks here.
+will be lost in the beginning, so be careful with this in your checks.__
+PlayerData - Stores only a few fields, such as the managers which are initialized per player.__
+TrackerManager - Stores each tracker initialized per player. Register new trackers here.__
+CheckManager - Stores each check initialized per player. Register new checks here.__
 
 ### Check handlers
 Most anti-cheats use a single method or multiple abstract class types for check handling. Nova uses an interface handler system, so you
