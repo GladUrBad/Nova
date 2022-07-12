@@ -9,7 +9,7 @@ Nova should be used as a resource to the community. Nova introduces checks unhea
 - Aim checks which utilize an accurate sensitivity tracker to flag rotations which bypass GCD checks.
 - Reach and hit-box check which utilizes transaction-confirmed tracking and interpolation.
 
-Nova also introduces packet listening on the main thread, through a modified PlayerConnection class. The packet wrapper system itself
+Nova also introduces packet listening on the main thread, through a modified PlayerConnection class (Credits to Elevated). The packet wrapper system itself
 uses reflection. Why would you want to be on the main thread?
 
 ![image](https://user-images.githubusercontent.com/62041141/172733095-ffc9eee0-eded-4a11-b621-62f7d7c84686.png)
