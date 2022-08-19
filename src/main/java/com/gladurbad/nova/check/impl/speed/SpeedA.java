@@ -5,8 +5,10 @@ import com.gladurbad.nova.check.handler.PositionHandler;
 import com.gladurbad.nova.data.PlayerData;
 import com.gladurbad.nova.util.buffer.Buffer;
 import com.gladurbad.nova.util.location.PlayerLocation;
+import com.gladurbad.nova.util.math.MathUtil;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
+import org.bukkit.Bukkit;
 
 public class SpeedA extends Check implements PositionHandler {
 
@@ -43,7 +45,7 @@ public class SpeedA extends Check implements PositionHandler {
             }
 
             // Add the horizontal velocity to the attribute.
-            attribute += velocityTracker.getHorizontalVelocity();
+            attribute += MathUtil.hypot(velocityTracker.getX(), velocityTracker.getZ());
 
             // These aren't protocol but I added them to make the check more stable.
             if (lastOffset) attribute += 0.05;

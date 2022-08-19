@@ -5,6 +5,7 @@ import com.gladurbad.nova.check.handler.PositionHandler;
 import com.gladurbad.nova.data.PlayerData;
 import com.gladurbad.nova.util.buffer.Buffer;
 import com.gladurbad.nova.util.location.PlayerLocation;
+import org.bukkit.Bukkit;
 
 public class VelocityA extends Check implements PositionHandler {
 
@@ -17,7 +18,7 @@ public class VelocityA extends Check implements PositionHandler {
     @Override
     public void handle(PlayerLocation to, PlayerLocation from) {
         // Get the vertical velocity.
-        double verticalVelocity = velocityTracker.getVerticalVelocity();
+        double verticalVelocity = velocityTracker.getY();
 
         // Check if the player is taking velocity.
         if (verticalVelocity > 0) {
@@ -39,6 +40,7 @@ public class VelocityA extends Check implements PositionHandler {
                     || collisionTracker.isLiquid()
                     || collisionTracker.isLadder()
                     || positionTracker.isTeleporting()
+                    || velocityTracker.isConfirming()
                     || Math.abs(deltaY - jumpMotion) < 0.001;
 
             if (exempt) return;

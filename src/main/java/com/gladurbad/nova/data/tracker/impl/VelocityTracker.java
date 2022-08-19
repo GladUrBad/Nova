@@ -8,16 +8,18 @@ import com.gladurbad.nova.network.wrapper.WrappedPacket;
 import com.gladurbad.nova.network.wrapper.inbound.CPacketFlying;
 import com.gladurbad.nova.network.wrapper.outbound.SPacketEntityVelocity;
 import com.gladurbad.nova.util.math.MathUtil;
-import org.bukkit.util.Vector;
+import lombok.Getter;
 
+@Getter
 public class VelocityTracker extends Tracker implements PacketProcessor, PostPacketProcessor {
 
     public VelocityTracker(PlayerData data) {
         super(data);
     }
 
-    private double horizontalVelocity, verticalVelocity;
-    private int exemptedTicks;
+    private double x, y, z;
+    private boolean confirming;
+
 
     @Override
     public void process(WrappedPacket packet) {
@@ -26,44 +28,25 @@ public class VelocityTracker extends Tracker implements PacketProcessor, PostPac
 
             // Make sure the ids match since velocity packets are sent for every entity to the client.
             if (wrapper.getEntityId() == data.getPlayer().getEntityId()) {
-                horizontalVelocity = MathUtil.hypot(wrapper.getX(), wrapper.getZ());
-                verticalVelocity = wrapper.getY();
+                PingTracker pingTracker = data.getTrackerManager().getTracker(PingTracker.class);
 
-                /*
-                 * This is a simple way to exempt velocity from certain movement checks you might make
-                 * that are so terrible that you'd have to use an exempt system like this. An example of a check that
-                 * might use this is a Verus-type speed check where it's basically already terrible, and then you exempt it
-                 * like this making it even more terrible. Then you sell it for hundreds of dollars anyways.
-                 */
-                double velocity = Math.abs(horizontalVelocity);
+                // Using a "transaction sandwich" to ensure that we can "fix" split transaction.
+                pingTracker.confirm(() -> confirming = true);
 
-                while (velocity > 0.005 && exemptedTicks < 50) {
-                    velocity *= 0.65;
-                    ++exemptedTicks;
-                }
+                // This will have disabler problems if someone manages to find a way to get stuck on the confirming status.
+                pingTracker.confirm(() -> {
+                    x = wrapper.getX();
+                    y = wrapper.getY();
+                    z = wrapper.getZ();
+                });
             }
-        } else if (packet instanceof CPacketFlying) {
-            exemptedTicks = Math.max(0, exemptedTicks - 1);
         }
     }
 
     @Override
     public void postProcess(WrappedPacket packet) {
         if (packet instanceof CPacketFlying) {
-            horizontalVelocity = 0;
-            verticalVelocity = 0;
+            x = y = z = 0;
         }
-    }
-
-    public double getHorizontalVelocity() {
-        return horizontalVelocity;
-    }
-
-    public double getVerticalVelocity() {
-        return verticalVelocity;
-    }
-
-    public boolean isExempted() {
-        return exemptedTicks > 0;
     }
 }

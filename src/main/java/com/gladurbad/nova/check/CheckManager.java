@@ -4,6 +4,7 @@ import com.gladurbad.nova.check.impl.aim.AimA;
 import com.gladurbad.nova.check.impl.aim.AimB;
 import com.gladurbad.nova.check.impl.aim.AimC;
 import com.gladurbad.nova.check.impl.autoclicker.AutoClickerA;
+import com.gladurbad.nova.check.impl.autoclicker.AutoClickerB;
 import com.gladurbad.nova.check.impl.fly.FlyA;
 import com.gladurbad.nova.check.impl.fly.FlyB;
 import com.gladurbad.nova.check.impl.hitbox.HitboxA;
@@ -34,6 +35,7 @@ public class CheckManager {
                 .put(AimB.class, new AimB(data))
                 .put(AimC.class, new AimC(data))
                 .put(AutoClickerA.class, new AutoClickerA(data))
+                .put(AutoClickerB.class, new AutoClickerB(data))
                 .put(FlyA.class, new FlyA(data))
                 .put(FlyB.class, new FlyB(data))
                 .put(HitboxA.class, new HitboxA(data))

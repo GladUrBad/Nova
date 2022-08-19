@@ -73,4 +73,16 @@ public class AttributeTracker extends Tracker implements PacketProcessor {
             });
         }
     }
+
+    public float getAttributeSpeed() {
+        float attributeSpeed = walkSpeed * 1.3F;
+
+        final int speedAmplifier = speedModifier;
+
+        if (speedAmplifier > 0) {
+            attributeSpeed *= 1.F + (speedAmplifier * 0.2F);
+        }
+
+        return attributeSpeed;
+    }
 }

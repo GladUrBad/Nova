@@ -49,7 +49,7 @@ public class BlockUtil {
                 SOLIDS.add(material);
             }
 
-            if (name.endsWith("_STAIRS")) {
+            if (name.contains("STAIR")) {
                 STAIRS.add(material);
                 ABNORMALS.add(material);
             }

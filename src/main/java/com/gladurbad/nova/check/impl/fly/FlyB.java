@@ -35,7 +35,8 @@ public class FlyB extends Check implements PositionHandler {
                 || collisionTracker.isSlime()
                 || collisionTracker.isWeb()
                 || positionTracker.isTeleporting()
-                || deltaY + 0.098F < 0.001;
+                || Math.abs(deltaY + 0.098) < 0.001
+                || data.getTick() < 120;
 
 
         // Make sure the last statuses are not null to run the check.

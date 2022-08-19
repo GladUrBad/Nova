@@ -26,7 +26,7 @@ public class FlyA extends Check implements PositionHandler {
         boolean serverGround = collisionTracker.isOnGround();
 
         // Exempt cases where the ground status is modified or when players can step.
-        if (collisionTracker.isSlime() || collisionTracker.isAbnormal()) return;
+        if (collisionTracker.isSlime() || collisionTracker.isAbnormal() || data.getTick() < 120) return;
 
         /*
          * We use the motion to make this check a tad more accurate.
