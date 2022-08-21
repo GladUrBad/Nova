@@ -80,10 +80,8 @@ public class MouseTracker extends Tracker {
             }
 
             if (processed) {
-                data.getCheckManager().getChecks().stream()
-                        .filter(RotationHandler.class::isInstance)
-                        .map(RotationHandler.class::cast)
-                        .forEach(handler -> handler.handle(to, from));
+                for (RotationHandler check : data.getCheckManager().getRotationChecks())
+                    check.handle(to, from);
             }
         }
     }

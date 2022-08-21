@@ -5,7 +5,6 @@ import com.gladurbad.nova.check.handler.PositionHandler;
 import com.gladurbad.nova.data.PlayerData;
 import com.gladurbad.nova.util.buffer.Buffer;
 import com.gladurbad.nova.util.location.PlayerLocation;
-import org.bukkit.Bukkit;
 
 public class VelocityA extends Check implements PositionHandler {
 
@@ -33,7 +32,7 @@ public class VelocityA extends Check implements PositionHandler {
              * handling them we can just exempt them since they are pretty niche bypasses. The player can jump
              * to override their velocity as well, so we exempt that, too.
              */
-            boolean exempt = positionTracker.isOffsetPosition()
+            boolean exempt = positionTracker.isOffsetMotion()
                     || attributeTracker.isFlying()
                     || collisionTracker.isUnderBlock()
                     || collisionTracker.isSlime()

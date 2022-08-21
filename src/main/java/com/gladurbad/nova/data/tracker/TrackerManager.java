@@ -8,13 +8,14 @@ import com.gladurbad.nova.data.tracker.impl.*;
 import com.gladurbad.nova.network.wrapper.WrappedPacket;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
+import lombok.Getter;
 import org.bukkit.event.Event;
 
 import java.util.Collection;
 
 public class TrackerManager {
 
-    private final ClassToInstanceMap<Tracker> trackerMap;
+    @Getter private final ClassToInstanceMap<Tracker> trackerMap;
 
     public TrackerManager(PlayerData data) {
         /*
@@ -41,33 +42,32 @@ public class TrackerManager {
         Collection<Tracker> trackers = trackerMap.values();
 
         // Handle pre packet.
-        trackers.stream()
-                .filter(PacketProcessor.class::isInstance)
-                .map(PacketProcessor.class::cast)
-                .forEach(handler -> handler.process(packet));
+        for (Tracker tracker : trackers) {
+            if (tracker instanceof PacketProcessor) {
+                ((PacketProcessor) tracker).process(packet);
+            }
+        }
     }
 
     public void handlePostPacket(WrappedPacket packet) {
         Collection<Tracker> trackers = trackerMap.values();
 
-        // Handle pre packet.
-        trackers.stream()
-                .filter(PostPacketProcessor.class::isInstance)
-                .map(PostPacketProcessor.class::cast)
-                .forEach(handler -> handler.postProcess(packet));
+        // Handle post packet.
+        for (Tracker tracker : trackers) {
+            if (tracker instanceof PostPacketProcessor) {
+                ((PostPacketProcessor) tracker).postProcess(packet);
+            }
+        }
     }
 
     public void handleEvent(Event event) {
         Collection<Tracker> trackers = trackerMap.values();
 
-        // Handle pre packet.
-        trackers.stream()
-                .filter(EventProcessor.class::isInstance)
-                .map(EventProcessor.class::cast)
-                .forEach(handler -> handler.process(event));
-    }
-
-    public <T extends Tracker> T getTracker(Class<T> klass) {
-        return trackerMap.getInstance(klass);
+        // Handle Bukkit event.
+        for (Tracker tracker : trackers) {
+            if (tracker instanceof EventProcessor) {
+                ((EventProcessor) tracker).process(event);
+            }
+        }
     }
 }

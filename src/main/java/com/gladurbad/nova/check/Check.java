@@ -31,15 +31,15 @@ public class Check {
                 .replaceAll("%check%", name);
 
         // Don't want to have to do chained getters in every check so just store a reference of every tracker.
-        this.actionTracker = data.getTrackerManager().getTracker(ActionTracker.class);
-        this.attributeTracker = data.getTrackerManager().getTracker(AttributeTracker.class);
-        this.clickTracker = data.getTrackerManager().getTracker(ClickTracker.class);
-        this.collisionTracker = data.getTrackerManager().getTracker(CollisionTracker.class);
-        this.entityTracker = data.getTrackerManager().getTracker(EntityTracker.class);
-        this.mouseTracker = data.getTrackerManager().getTracker(MouseTracker.class);
-        this.pingTracker = data.getTrackerManager().getTracker(PingTracker.class);
-        this.positionTracker = data.getTrackerManager().getTracker(PositionTracker.class);
-        this.velocityTracker = data.getTrackerManager().getTracker(VelocityTracker.class);
+        this.actionTracker = data.getTracker(ActionTracker.class);
+        this.attributeTracker = data.getTracker(AttributeTracker.class);
+        this.clickTracker = data.getTracker(ClickTracker.class);
+        this.collisionTracker = data.getTracker(CollisionTracker.class);
+        this.entityTracker = data.getTracker(EntityTracker.class);
+        this.mouseTracker = data.getTracker(MouseTracker.class);
+        this.pingTracker = data.getTracker(PingTracker.class);
+        this.positionTracker = data.getTracker(PositionTracker.class);
+        this.velocityTracker = data.getTracker(VelocityTracker.class);
     }
 
     protected void debug(Object debug) {

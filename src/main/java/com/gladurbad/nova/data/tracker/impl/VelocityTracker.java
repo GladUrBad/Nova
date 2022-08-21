@@ -28,7 +28,7 @@ public class VelocityTracker extends Tracker implements PacketProcessor, PostPac
 
             // Make sure the ids match since velocity packets are sent for every entity to the client.
             if (wrapper.getEntityId() == data.getPlayer().getEntityId()) {
-                PingTracker pingTracker = data.getTrackerManager().getTracker(PingTracker.class);
+                PingTracker pingTracker = data.getTracker(PingTracker.class);
 
                 // Using a "transaction sandwich" to ensure that we can "fix" split transaction.
                 pingTracker.confirm(() -> confirming = true);

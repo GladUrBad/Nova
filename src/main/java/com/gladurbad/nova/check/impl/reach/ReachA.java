@@ -11,7 +11,6 @@ import com.gladurbad.nova.util.collision.BoundingBox;
 import com.gladurbad.nova.util.location.PlayerLocation;
 import com.gladurbad.nova.util.math.MathUtil;
 import com.gladurbad.nova.util.reach.ReachEntity;
-import org.bukkit.util.Vector;
 
 public class ReachA extends Check implements PacketHandler {
 
@@ -43,7 +42,7 @@ public class ReachA extends Check implements PacketHandler {
             boundingBox.expand(0.1F, 0.1F, 0.1F);
 
             // The player server and client positions are offset, expand by the maximum offset.
-            if (positionTracker.isOffsetPosition()) boundingBox.expand(0.03, 0.03, 0.03);
+            if (positionTracker.isOffsetMotion()) boundingBox.expand(0.03, 0.03, 0.03);
 
             // Get the minimum distance on the X-axis.
             double distanceX = Math.min(Math.abs(from.getX() - boundingBox.getMinX()),

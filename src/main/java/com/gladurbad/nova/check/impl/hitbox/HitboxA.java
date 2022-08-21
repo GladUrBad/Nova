@@ -42,7 +42,7 @@ public class HitboxA extends Check implements PacketHandler {
             boundingBox.expand(0.1F, 0.1F, 0.1F);
 
             // The player server and client positions are offset, expand by the maximum offset.
-            if (positionTracker.isOffsetPosition()) boundingBox.expand(0.03, 0.03, 0.03);
+            if (positionTracker.isOffsetMotion()) boundingBox.expand(0.03, 0.03, 0.03);
 
             /*
              * Create a direction vector of the attacker's eye based on their yaw value. We aren't really factoring in

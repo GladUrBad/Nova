@@ -37,7 +37,7 @@ public class EntityTracker extends Tracker implements PacketProcessor, PostPacke
             if (entity == null) return;
 
             // Confirm using transactions for lag-proofing.
-            data.getTrackerManager().getTracker(PingTracker.class).confirm(() -> {
+            data.getTracker(PingTracker.class).confirm(() -> {
                 entity.serverPosX += wrapper.getX();
                 entity.serverPosY += wrapper.getY();
                 entity.serverPosZ += wrapper.getZ();
@@ -54,7 +54,7 @@ public class EntityTracker extends Tracker implements PacketProcessor, PostPacke
 
             if (entity == null) return;
 
-            data.getTrackerManager().getTracker(PingTracker.class).confirm(() -> {
+            data.getTracker(PingTracker.class).confirm(() -> {
                 // Code is directly from the client (not really, no).
                 entity.serverPosX = wrapper.getX();
                 entity.serverPosY = wrapper.getY();

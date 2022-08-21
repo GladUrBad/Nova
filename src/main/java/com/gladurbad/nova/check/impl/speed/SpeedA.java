@@ -8,7 +8,6 @@ import com.gladurbad.nova.util.location.PlayerLocation;
 import com.gladurbad.nova.util.math.MathUtil;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
-import org.bukkit.Bukkit;
 
 public class SpeedA extends Check implements PositionHandler {
 
@@ -72,7 +71,7 @@ public class SpeedA extends Check implements PositionHandler {
         }
 
         // Set the last position offset status.
-        lastOffset = positionTracker.isOffsetPosition();
+        lastOffset = positionTracker.isOffsetMotion();
 
         // Set the last friction value.
         friction = MinecraftServer.getServer()

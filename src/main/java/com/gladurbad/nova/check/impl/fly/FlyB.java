@@ -53,7 +53,7 @@ public class FlyB extends Check implements PositionHandler {
             double offset = Math.abs(deltaY - estimation);
 
             // When the player's position is offset we can increase the offset threshold to prevent false positives.
-            double threshold = positionTracker.isOffsetPosition() ? 0.05 : 1e-10;
+            double threshold = positionTracker.isOffsetMotion() ? 0.05 : 1e-10;
 
             // Exempt cases where the motion was modified while being off the ground or if the player has not loaded in yet.
             boolean exempt = motionExempt || lastMotionExempt || data.getTick() < 40;

@@ -63,14 +63,12 @@ public class PositionTracker extends Tracker implements PacketProcessor {
                 }
 
                 // I hate this as much as you do.
-                data.getTrackerManager().getTracker(CollisionTracker.class).update(to);
-                data.getTrackerManager().getTracker(MouseTracker.class).update(to, from);
+                data.getTracker(CollisionTracker.class).update(to);
+                data.getTracker(MouseTracker.class).update(to, from);
 
                 // Run movement checks.
-                data.getCheckManager().getChecks().stream()
-                        .filter(PositionHandler.class::isInstance)
-                        .map(PositionHandler.class::cast)
-                        .forEach(handler -> handler.handle(to, from));
+                for (PositionHandler check : data.getCheckManager().getPositionChecks())
+                    check.handle(to, from);
 
                 lastDistance = distance;
             }
@@ -90,8 +88,13 @@ public class PositionTracker extends Tracker implements PacketProcessor {
     }
 
     // Basically a shitty fix for the 0.03 condition in the client, just increase the threshold for some checks.
-    public boolean isOffsetPosition() {
+    public boolean isOffsetMotion() {
         return data.getTick() - lastOffset < 4;
+    }
+
+    // Different from isOffsetMotion, this is mainly used for reach checks, the former is used for motion checks which use movement deltas which are affected for longer.
+    public boolean isOffsetPosition() {
+        return data.getTick() == lastOffset;
     }
 
     public boolean isTeleporting() {

@@ -1,5 +1,9 @@
 package com.gladurbad.nova.check;
 
+import com.gladurbad.nova.check.handler.PacketHandler;
+import com.gladurbad.nova.check.handler.PositionHandler;
+import com.gladurbad.nova.check.handler.RotationHandler;
+import com.gladurbad.nova.check.handler.SwingHandler;
 import com.gladurbad.nova.check.impl.aim.AimA;
 import com.gladurbad.nova.check.impl.aim.AimB;
 import com.gladurbad.nova.check.impl.aim.AimC;
@@ -21,16 +25,22 @@ import com.gladurbad.nova.check.impl.velocity.VelocityB;
 import com.gladurbad.nova.data.PlayerData;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
+import lombok.Getter;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+@Getter
 public class CheckManager {
 
-    private final ClassToInstanceMap<Check> checkMap;
+    private final Set<PacketHandler> packetChecks;
+    private final Set<PositionHandler> positionChecks;
+    private final Set<RotationHandler> rotationChecks;
+    private final Set<SwingHandler> swingChecks;
 
     public CheckManager(PlayerData data) {
         // Register checks here.
-        this.checkMap = new ImmutableClassToInstanceMap.Builder<Check>()
+        ClassToInstanceMap<Check> checkMap = new ImmutableClassToInstanceMap.Builder<Check>()
                 .put(AimA.class, new AimA(data))
                 .put(AimB.class, new AimB(data))
                 .put(AimC.class, new AimC(data))
@@ -50,13 +60,18 @@ public class CheckManager {
                 .put(VelocityA.class, new VelocityA(data))
                 .put(VelocityB.class, new VelocityB(data))
                 .build();
-    }
 
-    public <T extends Check> T getCheck(Class<T> klass) {
-        return checkMap.getInstance(klass);
-    }
+        this.packetChecks = new HashSet<>();
+        this.positionChecks = new HashSet<>();
+        this.rotationChecks = new HashSet<>();
+        this.swingChecks = new HashSet<>();
 
-    public Collection<Check> getChecks() {
-        return checkMap.values();
+        for (Check check : checkMap.values()) {
+            // Checks can have multiple handlers.
+            if (check instanceof PacketHandler) packetChecks.add((PacketHandler) check);
+            if (check instanceof PositionHandler) positionChecks.add((PositionHandler) check);
+            if (check instanceof RotationHandler) rotationChecks.add((RotationHandler) check);
+            if (check instanceof SwingHandler) swingChecks.add((SwingHandler) check);
+        }
     }
 }

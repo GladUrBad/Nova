@@ -30,7 +30,7 @@ public class AttributeTracker extends Tracker implements PacketProcessor {
                 int effectId = wrapper.getEffectId();
 
                 // Confirm changes using transactions to prevent falses from lag.
-                data.getTrackerManager().getTracker(PingTracker.class).confirm(() -> {
+                data.getTracker(PingTracker.class).confirm(() -> {
                     if (effectId == 1) {
                         speedModifier = wrapper.getAmplifier() + 1;
                     } else if (effectId == 8) {
@@ -44,7 +44,7 @@ public class AttributeTracker extends Tracker implements PacketProcessor {
             if (wrapper.getEntityId() == data.getPlayer().getEntityId()) {
                 int effectId = wrapper.getEffectId();
 
-                data.getTrackerManager().getTracker(PingTracker.class).confirm(() -> {
+                data.getTracker(PingTracker.class).confirm(() -> {
                     if (effectId == 1) speedModifier = 0;
                     else if (effectId == 8) jumpModifier = 0;
                 });
@@ -52,7 +52,7 @@ public class AttributeTracker extends Tracker implements PacketProcessor {
         } else if (packet instanceof SPacketAbilities) {
             SPacketAbilities wrapper = (SPacketAbilities) packet;
 
-            data.getTrackerManager().getTracker(PingTracker.class).confirm(() -> {
+            data.getTracker(PingTracker.class).confirm(() -> {
                 if (flySpeed != wrapper.getFlySpeed()) {
                     lastAbilityChange = data.getTick();
                 }

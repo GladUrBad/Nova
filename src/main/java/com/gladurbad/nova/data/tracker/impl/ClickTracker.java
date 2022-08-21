@@ -32,10 +32,8 @@ public class ClickTracker extends Tracker implements PacketProcessor {
             if (samples.size() == 100) {
                 ClickAnalysis analysis = new ClickAnalysis(samples);
 
-                data.getCheckManager().getChecks().stream()
-                        .filter(SwingHandler.class::isInstance)
-                        .map(SwingHandler.class::cast)
-                        .forEach(handler -> handler.handle(analysis));
+                for (SwingHandler check : data.getCheckManager().getSwingChecks())
+                    check.handle(analysis);
 
                 samples.clear();
             }
