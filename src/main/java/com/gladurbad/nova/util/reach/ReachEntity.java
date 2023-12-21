@@ -26,7 +26,7 @@ public class ReachEntity {
     private final float width;
     public final float height;
 
-    public ReachEntity(int id, int serverPosX, int serverPosY, int serverPosZ) {
+    public ReachEntity(int id, int serverPosX, int serverPosY, int serverPosZ, float width, float height) {
         /*
          * "Is this even the right way to do it?" - asked Glad.
          * Foo replies, "No, you see here on line thirty-fou-"
@@ -42,8 +42,8 @@ public class ReachEntity {
         this.posY = serverPosY / 32.0D;
         this.posZ = serverPosZ / 32.0D;
 
-        this.width = 0.6F;
-        this.height = 1.8F;
+        this.width = width;
+        this.height = height;
 
         float expandX = this.width / 2.0F;
 

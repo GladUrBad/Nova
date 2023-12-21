@@ -27,6 +27,7 @@ public class TrackerManager {
          */
         this.trackerMap = new ImmutableClassToInstanceMap.Builder<Tracker>()
                 .put(ActionTracker.class, new ActionTracker(data))
+                .put(AimTracker.class, new AimTracker(data))
                 .put(AttributeTracker.class, new AttributeTracker(data))
                 .put(ClickTracker.class, new ClickTracker(data))
                 .put(CollisionTracker.class, new CollisionTracker(data))

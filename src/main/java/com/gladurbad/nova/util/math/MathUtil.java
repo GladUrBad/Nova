@@ -2,7 +2,6 @@ package com.gladurbad.nova.util.math;
 
 import com.gladurbad.nova.util.tuple.Pair;
 import lombok.experimental.UtilityClass;
-import lombok.var;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -131,7 +130,7 @@ public class MathUtil {
         Number mode = null;
         int highest = 0;
 
-        for (var entry : frequencies.entrySet()) {
+        for (Map.Entry<Number, Integer> entry : frequencies.entrySet()) {
             if (entry.getValue() > highest) {
                 mode = entry.getKey();
                 highest = entry.getValue();
@@ -154,4 +153,5 @@ public class MathUtil {
         }
         return flub;
     }
+
 }

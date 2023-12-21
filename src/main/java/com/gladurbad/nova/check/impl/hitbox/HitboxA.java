@@ -10,6 +10,7 @@ import com.gladurbad.nova.util.buffer.Buffer;
 import com.gladurbad.nova.util.collision.BoundingBox;
 import com.gladurbad.nova.util.location.PlayerLocation;
 import com.gladurbad.nova.util.reach.ReachEntity;
+import com.gladurbad.nova.util.reach.ReachUtil;
 import org.bukkit.util.Vector;
 
 public class HitboxA extends Check implements PacketHandler {
@@ -53,21 +54,7 @@ public class HitboxA extends Check implements PacketHandler {
              * we get the point of the ray on each line. We can then use these points to basically check if the path
              * they make crosses through the rectangle with some simple math.
              */
-            Vector direction = new Vector(-Math.sin(Math.toRadians(to.getYaw())), 0, Math.cos(Math.toRadians(to.getYaw())));
-
-            double inverseDirectionX = 1.0 / direction.getX();
-            double inverseDirectionZ = 1.0 / direction.getZ();
-
-            boolean inverseX = inverseDirectionX < 0.0;
-            boolean inverseZ = inverseDirectionZ < 0.0;
-
-            double minX = ((inverseX ? boundingBox.getMaxX() : boundingBox.getMinX()) - from.getX()) * inverseDirectionX;
-            double maxX = ((inverseX ? boundingBox.getMinX() : boundingBox.getMaxX()) - from.getX()) * inverseDirectionX;
-
-            double minZ = ((inverseZ ? boundingBox.getMaxZ() : boundingBox.getMinZ()) - from.getZ()) * inverseDirectionZ;
-            double maxZ = ((inverseZ ? boundingBox.getMinZ() : boundingBox.getMaxZ()) - from.getZ()) * inverseDirectionZ;
-
-            boolean intersects = maxZ > minX && minZ < maxX;
+            boolean intersects = ReachUtil.lineOfSight(to.getYaw(), from, boundingBox);
 
             if (!intersects) {
                 if (buffer.add() > 2) fail();

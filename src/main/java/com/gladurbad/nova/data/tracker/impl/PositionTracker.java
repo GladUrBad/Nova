@@ -65,6 +65,7 @@ public class PositionTracker extends Tracker implements PacketProcessor {
                 // I hate this as much as you do.
                 data.getTracker(CollisionTracker.class).update(to);
                 data.getTracker(MouseTracker.class).update(to, from);
+                data.getTracker(AimTracker.class).update(to, from);
 
                 // Run movement checks.
                 for (PositionHandler check : data.getCheckManager().getPositionChecks())

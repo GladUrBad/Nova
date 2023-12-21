@@ -96,6 +96,7 @@ public class AimC extends Check implements RotationHandler, PacketHandler {
                 double deltasDeviation = MathUtil.deviation(deltas);
                 double offsetsDeviation = MathUtil.deviation(offsets);
 
+                //debug(String.format("ad=%.2f ao=%.2f dd=%.2f od=%.2f", averageDelta, averageOffset, deltasDeviation, offsetsDeviation));
                 if (averageDelta > 2.5 && averageOffset < 3.0 && deltasDeviation > 1.0 && offsetsDeviation < 3.0) {
                     // Use a buffer since this check is based simply on improbability.
                     if (buffer.add() > 3) fail();

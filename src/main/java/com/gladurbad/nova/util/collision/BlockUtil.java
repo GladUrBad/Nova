@@ -1,7 +1,6 @@
 package com.gladurbad.nova.util.collision;
 
 import lombok.experimental.UtilityClass;
-import lombok.var;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
@@ -87,9 +86,9 @@ public class BlockUtil {
                 Material.IRON_TRAPDOOR));
 
         // passable materials.
-        PASSABLES.addAll(Arrays.asList(Material.AIR, Material.GRASS, Material.SAPLING, Material.POWERED_RAIL,
-                Material.DETECTOR_RAIL, Material.LONG_GRASS, Material.DEAD_BUSH, Material.YELLOW_FLOWER,
-                Material.RED_ROSE, Material.TORCH, Material.FIRE, Material.CROPS, Material.SIGN_POST,
+        PASSABLES.addAll(Arrays.asList(Material.AIR, Material.SAPLING, Material.POWERED_RAIL, Material.LONG_GRASS,
+                Material.DETECTOR_RAIL, Material.DEAD_BUSH, Material.YELLOW_FLOWER,
+                Material.RED_ROSE, Material.TORCH, Material.FIRE, Material.SIGN_POST,
                 Material.RAILS, Material.WALL_SIGN, Material.LEVER, Material.STONE_PLATE, Material.WOOD_PLATE,
                 Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON, Material.STONE_BUTTON, Material.PORTAL,
                 Material.TRIPWIRE, Material.CARROT, Material.POTATO, Material.WOOD_BUTTON, Material.GOLD_PLATE,

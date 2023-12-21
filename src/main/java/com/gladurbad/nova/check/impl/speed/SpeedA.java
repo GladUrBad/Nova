@@ -60,7 +60,10 @@ public class SpeedA extends Check implements PositionHandler {
                         || collisionTracker.isLiquid();
 
                 if (excess > 0.001 && !exempt) {
-                    if (buffer.add() > 3) fail();
+                    if (buffer.add() > 3) {
+                        fail();
+                        buffer.reset();
+                    }
                 } else {
                     buffer.reduce(0.05);
                 }

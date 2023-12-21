@@ -24,7 +24,7 @@ public class FlyA extends Check implements PositionHandler {
 
         // Ground status as calculated by the anti-cheat.
         boolean serverGround = collisionTracker.isOnGround();
-
+        
         // Exempt cases where the ground status is modified or when players can step.
         if (collisionTracker.isSlime() || collisionTracker.isAbnormal() || data.getTick() < 120) return;
 
@@ -34,10 +34,8 @@ public class FlyA extends Check implements PositionHandler {
          * "Spoof" means the client claimed to be on the ground though they were not actually on the ground.
          * "Anti" means the client claimed to not be on the ground though they were on the ground.
          */
-        boolean spoof = clientGround && !serverGround && deltaY != 0.0;
-        boolean anti = !clientGround && serverGround && deltaY == 0.0;
 
-        if (spoof || anti) {
+        if (clientGround != serverGround) {
             // Use a buffer, the GladUrBad classic.
             if (buffer.add() > 3) fail();
         } else {

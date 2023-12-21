@@ -23,12 +23,12 @@ public class BoundingBox {
     }
 
     public BoundingBox(double x, double y, double z, float width, float height) {
-        this.minX = x;
+        this.minX = x - (width / 2.0F);
         this.minY = y;
-        this.minZ = z;
-        this.maxX = minX + (width / 2.0F);
-        this.maxY = minY + height;
-        this.maxZ = minZ + (width / 2.0F);
+        this.minZ = z - (width / 2.0F);
+        this.maxX = x + (width / 2.0F);
+        this.maxY = y + height;
+        this.maxZ = z + (width / 2.0F);
     }
 
     public BoundingBox expand(double x, double y, double z) {

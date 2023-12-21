@@ -117,6 +117,12 @@ public class PacketManager {
         }
 
         @Override
+        public void a(PacketPlayInChat packet) {
+            super.a(packet);
+            packetManager.handle(new CPacketChat(packet));
+        }
+
+        @Override
         public void a(PacketPlayInFlying packet) {
             super.a(packet);
             packetManager.handle(new CPacketFlying(packet));
@@ -160,6 +166,8 @@ public class PacketManager {
                 packetManager.handle(new SPacketKeepAlive((PacketPlayOutKeepAlive) packet));
             } else if (packet instanceof PacketPlayOutRemoveEntityEffect) {
                 packetManager.handle(new SPacketRemoveEntityEffect((PacketPlayOutRemoveEntityEffect) packet));
+            } else if (packet instanceof PacketPlayOutSpawnEntityLiving) {
+                packetManager.handle(new SPacketSpawnLivingEntity((PacketPlayOutSpawnEntityLiving) packet));
             }
         }
     }

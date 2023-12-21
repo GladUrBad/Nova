@@ -7,15 +7,11 @@ import com.gladurbad.nova.data.tracker.handler.PacketProcessor;
 import com.gladurbad.nova.data.tracker.handler.PostPacketProcessor;
 import com.gladurbad.nova.network.wrapper.WrappedPacket;
 import com.gladurbad.nova.network.wrapper.inbound.CPacketFlying;
-import com.gladurbad.nova.network.wrapper.outbound.SPacketEntity;
-import com.gladurbad.nova.network.wrapper.outbound.SPacketEntityDestroy;
-import com.gladurbad.nova.network.wrapper.outbound.SPacketEntityTeleport;
-import com.gladurbad.nova.network.wrapper.outbound.SPacketSpawnPlayer;
+import com.gladurbad.nova.network.wrapper.outbound.*;
 import com.gladurbad.nova.util.reach.ReachEntity;
+import net.minecraft.server.v1_8_R3.EntityVillager;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,9 +74,6 @@ public class EntityTracker extends Tracker implements PacketProcessor, PostPacke
             CraftWorld craftWorld = (CraftWorld) data.getPlayer().getWorld();
             net.minecraft.server.v1_8_R3.World nmsWorld = craftWorld.getHandle();
             net.minecraft.server.v1_8_R3.Entity nmsEntity = nmsWorld.a(wrapper.getEntityId());
-            Entity bukkitEntity = nmsEntity.getBukkitEntity();
-
-            if (!(bukkitEntity instanceof Player)) return;
 
             if (!entityMap.containsKey(wrapper.getEntityId())) {
                 // Runs later cause server is fucked i don't know whatever.
@@ -89,7 +82,32 @@ public class EntityTracker extends Tracker implements PacketProcessor, PostPacke
                             wrapper.getEntityId(),
                             wrapper.getX(),
                             wrapper.getY(),
-                            wrapper.getZ());
+                            wrapper.getZ(),
+                            0.6F,
+                            1.8F);
+
+                    entityMap.put(wrapper.getEntityId(), reachEntity);
+                }, 3);
+            }
+        } else if (packet instanceof SPacketSpawnLivingEntity) {
+            SPacketSpawnLivingEntity wrapper = (SPacketSpawnLivingEntity) packet;
+
+            if (wrapper.getEntityId() == data.getPlayer().getEntityId()) return;
+
+            CraftWorld craftWorld = (CraftWorld) data.getPlayer().getWorld();
+            net.minecraft.server.v1_8_R3.World nmsWorld = craftWorld.getHandle();
+
+            if (!entityMap.containsKey(wrapper.getEntityId())) {
+                // Runs later cause server is fucked i don't know whatever.
+                Bukkit.getScheduler().runTaskLater(Nova.getPlugin(), () -> {
+                    net.minecraft.server.v1_8_R3.Entity nmsEntity = nmsWorld.a(wrapper.getEntityId());
+                    ReachEntity reachEntity = new ReachEntity(
+                            wrapper.getEntityId(),
+                            wrapper.getX(),
+                            wrapper.getY(),
+                            wrapper.getZ(),
+                            nmsEntity.width,
+                            nmsEntity.length);
 
                     entityMap.put(wrapper.getEntityId(), reachEntity);
                 }, 3);

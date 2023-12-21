@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 @Getter
 public final class NovaPlugin extends JavaPlugin {
 
@@ -19,5 +21,15 @@ public final class NovaPlugin extends JavaPlugin {
         playerDataManager = new PlayerDataManager();
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+
+        // Create plugin folders
+        File modelsFolder = new File(this.getDataFolder(), "models");
+        if (!modelsFolder.exists()) modelsFolder.mkdirs();
+
+        File trainingData = new File(this.getDataFolder(), "training_data");
+        if (!trainingData.exists()) trainingData.mkdirs();
+
+        File testingData = new File(this.getDataFolder(), "testing_data");
+        if (!testingData.exists()) testingData.mkdirs();
     }
 }

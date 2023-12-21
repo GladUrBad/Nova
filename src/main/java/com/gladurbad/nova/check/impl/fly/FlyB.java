@@ -71,7 +71,10 @@ public class FlyB extends Check implements PositionHandler {
              */
             if (offset > threshold && !to.isOnGround() && !from.isOnGround() && !exempt) {
                 // Using a buffer since this check is not perfect.
-                if (buffer.add() > 2) fail();
+                if (buffer.add() > 2) {
+                    fail();
+                    buffer.reset();
+                }
             } else {
                 buffer.reduce(0.05);
             }
